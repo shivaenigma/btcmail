@@ -23,7 +23,7 @@ REDEEM_ENDPOINT = BASE_SERVER + "/btcmail#/redeem"
 #Set API_KEY to relax API limits if needed
 API_KEY = ""
 #Time in days after refund happens
-REFUND_TIME = 1
+REFUND_TIME = 7
 
 """
 A custom type for argparse, to facilitate validation of email addresses.
