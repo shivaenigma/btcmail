@@ -22,6 +22,8 @@ SEND_MAIL_API = BASE_SERVER + "/api/send_redeem_code"
 REDEEM_ENDPOINT = BASE_SERVER + "/btcmail#/redeem"
 #Set API_KEY to relax API limits if needed
 API_KEY = ""
+#Time in days after refund happens
+REFUND_TIME = 1
 
 """
 A custom type for argparse, to facilitate validation of email addresses.
@@ -60,9 +62,11 @@ def generate_redeem_link(email):
   public_key1 = "04" + format(public_pair[0], '064x') + format(public_pair[1], '064x')
 
   #Only submit public_key/email to server
-  post_request_data = { "public_key1" : public_key1, "email" : email } 
+  post_request_data = { "public_key1" : public_key1, "email" : email,
+                       "refund_time": REFUND_TIME} 
   headers={'Authorization': 'Bearer {}'.format(API_KEY)}
-  response = requests.post(SPLIT_KEY_API, data=post_request_data, headers=headers)
+  response = requests.post(SPLIT_KEY_API, data=post_request_data,
+                           headers=headers)
   result = response.json()
   btc_address = result.get("bitcoin_address")
 
